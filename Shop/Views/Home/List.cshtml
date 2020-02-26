@@ -1,29 +1,26 @@
 ﻿@model IEnumerable<Product>
 
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <title>List of products</title>
-</head>
-<body>
-    <table>
-        <thead>
+@{ 
+    ViewBag.Title = "List of products";
+}
+
+<table>
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Price</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach( var item in Model )
+            {
             <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Price</th>
+                <td>@item.Id</td>
+                <td>@item.Name</td>
+                <td>@item.Price</td>
             </tr>
-        </thead>
-        <tbody>
-            @foreach( var item in Model )
-             {
-                <tr>
-                    <td>@item.Id</td>
-                    <td>@item.Name</td>
-                    <td>@item.Price</td>
-                </tr>
-             }
+            }
             
-        </tbody>
-    </table>
-</body>
-</html>
+    </tbody>
+</table>
