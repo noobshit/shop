@@ -3,24 +3,34 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
+    <link href="~/lib/bootstrap/css/bootstrap.css" rel="stylesheet" />
+    <script src="~/lib/jquery/jquery.js"></script>
+    <script src="~/lib/bootstrap/js/bootstrap.js"></script>
+
     <title>@ViewBag.Title</title>
 </head>
 <body>
     <header>
-        <nav>
-            <div>
-                <ul>
-                    <li>
-                        <a asp-action="index" asp-controller="home">Home</a>
-                    </li>
-                    <li>
-                        <a asp-action="list" asp-controller="home">List</a>
-                    </li>
-                </ul>
+        <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+            <div class="container">
+                <a asp-controller="Home" asp-action="Index" class="navbar-brand">Shop app</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsible">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse" id="collapsible">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
+                            <a asp-action="index" asp-controller="home" class="nav-link">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-action="list" asp-controller="home" class="nav-link">List</a>
+                        </li>
+                    </ul>
+                </div>
             </div>
         </nav>
     </header>
-    <div>
+    <div class="container">
         @RenderBody()
     </div>
 </body>
