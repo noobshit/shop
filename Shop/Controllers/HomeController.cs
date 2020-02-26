@@ -13,9 +13,9 @@ namespace Shop.Controllers
 
         }
 
-        public string Index()
+        public IActionResult Index()
         {
-            return "Hello world!";
+            return View();
         }
     }
 }
