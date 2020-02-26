@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Shop.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,14 +9,21 @@ namespace Shop.Controllers
 {
     public class HomeController : Controller
     {
-        public HomeController()
+        private readonly IProductRepository _productRepository;
+        public HomeController(IProductRepository productRepository)
         {
-
+            _productRepository = productRepository;
         }
 
         public IActionResult Index()
         {
             return View();
+        }
+
+        public IActionResult List()
+        {
+            var products = _productRepository.GetProducts();
+            return View(products);
         }
     }
 }
