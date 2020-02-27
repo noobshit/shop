@@ -10,22 +10,9 @@ namespace Shop.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ShopContext _context;
-
-        public HomeController(ShopContext shopContext)
-        {
-            _context = shopContext;
-        }
-
         public IActionResult Index()
         {
             return View();
-        }
-
-        public IActionResult List()
-        {
-            var products = _context.Products.ToList();
-            return View(products);
         }
     }
 }
