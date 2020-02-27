@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Shop.Data;
 using Shop.Models;
 using System;
 using System.Collections.Generic;
@@ -9,10 +10,11 @@ namespace Shop.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IProductRepository _productRepository;
-        public HomeController(IProductRepository productRepository)
+        private readonly ShopContext _context;
+
+        public HomeController(ShopContext shopContext)
         {
-            _productRepository = productRepository;
+            _context = shopContext;
         }
 
         public IActionResult Index()
@@ -22,7 +24,7 @@ namespace Shop.Controllers
 
         public IActionResult List()
         {
-            var products = _productRepository.GetProducts();
+            var products = _context.Products.ToList();
             return View(products);
         }
     }
