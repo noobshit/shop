@@ -1,4 +1,7 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+
+<!DOCTYPE html>
 
 <html>
 <head>
@@ -27,6 +30,33 @@
                         </li>
                     </ul>
                 </div>
+            </div>
+            <div>
+                <ul>
+                    @if( SignInManager.IsSignedIn(User) )
+                    {
+                        <li>
+                            <form method="post" asp-controller="user" asp-action="logout">
+                                <button type="submit" style="width:auto">
+                                    Logout @User.Identity.Name
+                                </button>
+                            </form>
+                        </li>
+                    }
+                    else
+                    {
+                        <li>
+                            <a asp-controller="User" asp-action="SignUp">
+                                Sign up
+                            </a>
+                        </li>
+                        <li>
+                            <a asp-controller="User" asp-action="SignIn">
+                                Sign in
+                            </a>
+                        </li>
+                    }
+                </ul>
             </div>
         </nav>
     </header>
