@@ -1,0 +1,56 @@
+﻿@using Microsoft.AspNetCore.Identity
+@inject SignInManager<IdentityUser> SignInManager
+
+
+<nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+    <div class="container">
+        <a asp-controller="Home" asp-action="Index" class="navbar-brand">Shop app</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsible">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="navbar-collapse collapse" id="collapsible">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a asp-action="index" asp-controller="home"
+                       class="nav-link btn btn-link">
+                        Home
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a asp-action="index" asp-controller="product"
+                       class="nav-link btn btn-link">
+                        Products
+                    </a>
+                </li>
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                @if( SignInManager.IsSignedIn(User) )
+                {
+                    <li class="nav-item">
+                        <form method="post" asp-controller="user" asp-action="logout">
+                            <button type="submit" 
+                                    class="nav-link btn btn-link mx-auto">
+                                Logout @User.Identity.Name
+                            </button>
+                        </form>
+                    </li>
+                }
+                else
+                {
+                    <li class="nav-item">
+                        <a asp-controller="User" asp-action="SignUp"
+                           class="nav-link btn btn-link">
+                            Sign up
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a asp-controller="User" asp-action="SignIn"
+                           class="nav-link btn btn-link">
+                            Sign in
+                        </a>
+                    </li>
+                }
+            </ul>
+         </div>
+    </div>
+</nav>

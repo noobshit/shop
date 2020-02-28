@@ -1,7 +1,4 @@
-﻿@using Microsoft.AspNetCore.Identity
-@inject SignInManager<IdentityUser> SignInManager
-
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 
 <html>
 <head>
@@ -14,51 +11,7 @@
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
-            <div class="container">
-                <a asp-controller="Home" asp-action="Index" class="navbar-brand">Shop app</a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsible">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse" id="collapsible">
-                    <ul class="navbar-nav mr-auto">
-                        <li class="nav-item">
-                            <a asp-action="index" asp-controller="home" class="nav-link">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a asp-action="index" asp-controller="product" class="nav-link">Products</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-            <div>
-                <ul>
-                    @if( SignInManager.IsSignedIn(User) )
-                    {
-                        <li>
-                            <form method="post" asp-controller="user" asp-action="logout">
-                                <button type="submit" style="width:auto">
-                                    Logout @User.Identity.Name
-                                </button>
-                            </form>
-                        </li>
-                    }
-                    else
-                    {
-                        <li>
-                            <a asp-controller="User" asp-action="SignUp">
-                                Sign up
-                            </a>
-                        </li>
-                        <li>
-                            <a asp-controller="User" asp-action="SignIn">
-                                Sign in
-                            </a>
-                        </li>
-                    }
-                </ul>
-            </div>
-        </nav>
+        <partial name="_Navbar" />
     </header>
     <div class="container">
         @RenderBody()
