@@ -1,4 +1,4 @@
-﻿@model Shop.Models.Product
+﻿@model CreateProductViewModel
 
 @{
     ViewData["Title"] = "Create";
@@ -10,7 +10,7 @@
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Create">
+        <form asp-action="Create" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>
@@ -21,6 +21,10 @@
                 <label asp-for="Price" class="control-label"></label>
                 <input asp-for="Price" class="form-control" />
                 <span asp-validation-for="Price" class="text-danger"></span>
+            </div>
+            <div class="custom-file">
+                <label asp-for="ImagePath" class="custom-file-label" id="imagePathLabel">Choose a image...</label>
+                <input asp-for="ImagePath" class="custom-file-input" id="imagePathInput" />
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
@@ -33,3 +37,9 @@
     <a asp-action="Index">Back to List</a>
 </div>
 
+<script>
+    $("#imagePathInput").on("change", function () {
+        var fileName = $(this).val();
+        $("#imagePathLabel").html(fileName);
+    })
+</script>

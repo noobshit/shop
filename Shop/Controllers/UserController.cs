@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Shop.Models;
+using Shop.ViewModels;
 
 namespace Shop.Controllers
 {

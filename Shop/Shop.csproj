@@ -37,4 +37,8 @@
     <None Include="wwwroot\lib\bootstrap\js\bootstrap.min.js.map" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="wwwroot\images\products\" />
+  </ItemGroup>
+
 </Project>

@@ -1,7 +1,8 @@
-﻿@model Shop.Models.Product
+﻿@model Product
 
 @{
     ViewData["Title"] = "Details";
+    var imagePath = "~/images/products/" + (Model.ImagePath ?? "no_image.jpg");
 }
 
 <h1>Details</h1>
@@ -21,6 +22,9 @@
         </dt>
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Price)
+        </dd>
+        <dd class = "col-sm-10">
+            <img src="@imagePath" asp-append-version="true" />
         </dd>
     </dl>
 </div>

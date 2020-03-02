@@ -12,6 +12,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Shop.Data;
 using Shop.Models;
+using Shop.Services;
 
 namespace Shop
 {
@@ -43,6 +44,8 @@ namespace Shop
                     options.UseSqlServer(_config.GetConnectionString("ShopDB"));
                 }
             );
+
+            services.AddScoped<IImageManager, ImageManager>();
             services.AddMvc();
         }
 
