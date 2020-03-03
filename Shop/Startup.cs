@@ -39,6 +39,11 @@ namespace Shop
             })
                 .AddEntityFrameworkStores<ShopContext>();
 
+            services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = "/User/SignIn";
+            });
+
             services.AddDbContextPool<ShopContext>(options =>
                 {
                     options.UseSqlServer(_config.GetConnectionString("ShopDB"));
@@ -63,6 +68,7 @@ namespace Shop
             app.UseStaticFiles();
             app.UseRouting();
             app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

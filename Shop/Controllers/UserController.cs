@@ -69,7 +69,7 @@ namespace Shop.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> SignIn(SignInViewModel model)
+        public async Task<IActionResult> SignIn(SignInViewModel model, string returnUrl)
         {
             if (ModelState.IsValid)
             {
@@ -78,7 +78,14 @@ namespace Shop.Controllers
 
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("index", "home");
+                    if (string.IsNullOrEmpty(returnUrl))
+                    {
+                        return RedirectToAction("index", "home");
+                    }
+                    else
+                    {
+                        return Redirect(returnUrl);
+                    }
                 }
 
                 ModelState.AddModelError(string.Empty, "Invalid login attempt");

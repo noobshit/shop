@@ -8,9 +8,11 @@ using Shop.Models;
 using Shop.Data;
 using Microsoft.EntityFrameworkCore;
 using Shop.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Shop.Controllers
 {
+    [Authorize]
     public class CartController : Controller
     {
         private readonly ShopContext _shopContext;
