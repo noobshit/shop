@@ -1,0 +1,22 @@
+﻿@model IEnumerable<CartProduct>
+
+@if( Model.Any() )
+{
+    <table>
+        <tr>
+            <th>Name</th>
+            <th>Count</th>
+        </tr>
+        @foreach( var cartProduct in Model )
+        {
+            <tr>
+                <td> @cartProduct.Product.Name </td>
+                <td> @cartProduct.Count </td>
+            </tr>
+        }
+    </table>
+}
+else
+{
+    <h5>No products found in cart. </h5>
+}

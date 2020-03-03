@@ -28,7 +28,7 @@ namespace Shop
         // For more information on how to configure youzr application, visit https://go.microsoft.com/fwlink/?LinkID=398940
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddIdentity<IdentityUser, IdentityRole>(options =>
+            services.AddIdentity<ShopUser, IdentityRole>(options =>
             {
                 options.Password.RequireDigit = false;
                 options.Password.RequiredLength = 1;
@@ -45,6 +45,9 @@ namespace Shop
                 }
             );
 
+            services.AddHttpContextAccessor();
+
+            services.AddScoped<ICartManager, CartManager>();
             services.AddScoped<IImageManager, ImageManager>();
             services.AddMvc();
         }

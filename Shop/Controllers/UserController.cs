@@ -11,10 +11,10 @@ namespace Shop.Controllers
 {
     public class UserController : Controller
     {
-        private readonly UserManager<IdentityUser> _userManager;
-        private readonly SignInManager<IdentityUser> _signInManager;
+        private readonly UserManager<ShopUser> _userManager;
+        private readonly SignInManager<ShopUser> _signInManager;
 
-        public UserController(UserManager<IdentityUser> userManager, SignInManager<IdentityUser> signInManager)
+        public UserController(UserManager<ShopUser> userManager, SignInManager<ShopUser> signInManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -31,10 +31,11 @@ namespace Shop.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new IdentityUser
+                var user = new ShopUser
                 {
                     UserName = model.Email,
-                    Email = model.Email
+                    Email = model.Email,
+                    Cart = new Cart()
                 };
 
                 var result = await _userManager.CreateAsync(user, model.Password);

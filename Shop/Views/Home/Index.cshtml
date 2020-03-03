@@ -6,6 +6,7 @@
 
 <h1>Hello world from View/Home/Index.cshtml!</h1>
 
+
 <div class="card-deck">
     @foreach( var product in Model )
     {
@@ -15,6 +16,8 @@
         <div class="card-body">
             <h5 class="card-title">@product.Name</h5>
             <p class="card-text">@product.Price</p>
+            <a asp-action="add" asp-controller="cart" asp-route-id="@product.Id" 
+               class="btn btn-info">add to cart</a>
         </div>
     </div>
     }

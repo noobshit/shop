@@ -4,19 +4,23 @@ using Shop.Models;
 
 namespace Shop.Data
 {
-    public class ShopContext : IdentityDbContext 
+    public class ShopContext : IdentityDbContext<ShopUser> 
     {
         public ShopContext(DbContextOptions<ShopContext> options) : base(options)
         {
 
         }
         public DbSet<Product> Products { get; set; }
+        public DbSet<Cart> Carts { get; set; }
+        public DbSet<CartProduct> CartProducts { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Product>()
                 .Property(p => p.Price).HasColumnType("decimal(18,2)");
+
+            modelBuilder.Entity<CartProduct>().HasKey(cp => new { cp.CartId, cp.ProductId });
 
             modelBuilder.Entity<Product>().HasData(
                 new Product { Id=1, ImagePath="sample_1.jpg", Name="Ladder", Price=125.0M},
