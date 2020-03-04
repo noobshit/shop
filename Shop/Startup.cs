@@ -46,7 +46,7 @@ namespace Shop
 
             services.AddDbContextPool<ShopContext>(options =>
                 {
-                    options.UseSqlServer(_config.GetConnectionString("ShopDB"));
+                    options.UseLazyLoadingProxies().UseSqlServer(_config.GetConnectionString("ShopDB"));
                 }
             );
 

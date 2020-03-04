@@ -8,6 +8,6 @@ namespace Shop.Models
 {
     public class ShopUser : IdentityUser
     {
-        public Cart Cart { get; set; }
+        public virtual Cart Cart { get; set; }
     }
 }

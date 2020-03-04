@@ -8,6 +8,6 @@ namespace Shop.Models
     public class Cart
     {
         public int Id { get; set; }
-        public IList<CartProduct> CartProducts { get; set; }
+        public virtual IList<CartProduct> CartProducts { get; set; }
     }
 }

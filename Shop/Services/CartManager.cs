@@ -19,8 +19,8 @@ namespace Shop.Services
             _shopContext = shopContext;
 
             var userId = userManager.GetUserId(httpContextAccessor.HttpContext.User);
-            var userWithContext = _shopContext.Users.Include(u => u.Cart).Single(u => u.Id == userId);
-            _cart = userWithContext.Cart;
+            var user = _shopContext.Users.Find(userId);
+            _cart = user.Cart;
         }
 
         private CartProduct FindCartProduct(int productId)

@@ -17,6 +17,6 @@ namespace Shop.Models
         
         public string ImagePath { get; set; }
 
-        public IList<CartProduct> CartProducts { get; set; }
+        public virtual IList<CartProduct> CartProducts { get; set; }
     }
 }
