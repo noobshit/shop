@@ -15,30 +15,35 @@ namespace Shop.Controllers
     [Authorize]
     public class CartController : Controller
     {
-        private readonly ShopContext _shopContext;
         private readonly ICartManager _cartManager;
 
-        public CartController(ShopContext shopContext, ICartManager cartManager)
+        public CartController(ICartManager cartManager)
         {
-            _shopContext = shopContext;
             _cartManager = cartManager;
         }
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
             return View(_cartManager.List());
         }
-
         
-        public async Task<IActionResult> Add(int id)
+        public IActionResult Add(int id)
         {
-            var product = _shopContext.Products.FirstOrDefault(p => p.Id == id);
-            if (product == null)
-            {
-                NotFound();
-            }
-
-            _cartManager.Add(product);
+            _cartManager.Add(id);
             return RedirectToAction("index");
+        }
+
+        [HttpPost]
+        public IActionResult Delete(int id)
+        {
+            _cartManager.Remove(id);
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public IActionResult SetCount(IList<CartProduct> model, int id)
+        {
+            _cartManager.SetCount(model[id].ProductId, model[id].Count);
+            return RedirectToAction("Index");
         }
     }
 }

@@ -19,21 +19,26 @@ namespace Shop.Services
             _shopContext = shopContext;
 
             var userId = userManager.GetUserId(httpContextAccessor.HttpContext.User);
-            var userWithContext = _shopContext.Users.Include(u => u.Cart).FirstOrDefault(u => u.Id == userId);
+            var userWithContext = _shopContext.Users.Include(u => u.Cart).Single(u => u.Id == userId);
             _cart = userWithContext.Cart;
         }
 
-        public void Add(Product product)
+        private CartProduct FindCartProduct(int productId)
         {
-            var cartProduct = _shopContext.CartProducts.FirstOrDefault(cp => cp.CartId == _cart.Id && cp.ProductId == product.Id);
+            return _shopContext.CartProducts.Find(_cart.Id, productId);
+        }
+
+        public void Add(int productId)
+        {
+            var cartProduct = FindCartProduct(productId);
             if (cartProduct != null)
             {
-                _shopContext.Attach(cartProduct);
                 cartProduct.Count += 1;
                 _shopContext.SaveChanges();
             } 
             else
             {
+                var product = _shopContext.Products.Find(productId);
                 _shopContext.CartProducts.Add(new CartProduct
                 {
                     Cart = _cart,
@@ -45,12 +50,29 @@ namespace Shop.Services
                 _shopContext.SaveChanges();
             }
         }
-        public void ChangeCount(Product product) => throw new NotImplementedException();
-        public void Remove(Product product) => throw new NotImplementedException();
+        public void SetCount(int productId, int value)
+        {
+            var cartProduct = FindCartProduct(productId);
+            if (cartProduct == null)
+            {
+                throw new ArgumentOutOfRangeException();
+            }
+
+            cartProduct.Count = value;
+            _shopContext.SaveChanges();
+        }
+        public void Remove(int productId)
+        {
+            var cartProduct = FindCartProduct(productId);
+            _shopContext.Remove(cartProduct);
+            _shopContext.SaveChanges();
+        }
         public IEnumerable<CartProduct> List()
         {
-            var cartProducts = _shopContext.CartProducts.Include(cp => cp.Product).Where(cp => cp.CartId == _cart.Id).ToList();
-            return cartProducts;
+            return _shopContext.CartProducts
+                .Include(cp => cp.Product)
+                .Where(cp => cp.CartId == _cart.Id)
+                .ToList();
         }
     }
 }

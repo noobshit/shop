@@ -1,22 +1,41 @@
-﻿@model IEnumerable<CartProduct>
+﻿@model IList<CartProduct>
 
 @if( Model.Any() )
 {
-    <table>
-        <tr>
-            <th>Name</th>
-            <th>Count</th>
-        </tr>
-        @foreach( var cartProduct in Model )
-        {
+    <form method="post">
+        <table>
             <tr>
-                <td> @cartProduct.Product.Name </td>
-                <td> @cartProduct.Count </td>
+                <th>Name</th>
+                <th>Count</th>
             </tr>
-        }
-    </table>
+            @for( int i = 0; i < Model.Count; i++ )
+            {
+                <tr>
+                    <td>
+                        @Model[i].Product.Name
+                    </td>
+                    <td>
+                        <input hidden asp-for="@Model[i].ProductId" />
+                        <input asp-for="@Model[i].Count" />
+                    </td>
+                    <td>
+                        <button type="submit" asp-action="setCount" asp-route-id="@i" 
+                                class="btn btn-success">
+                            Save
+                        </button>
+                    </td>
+                    <td>
+                        <button type="submit" asp-action="delete" asp-route-id="@Model[i].ProductId"
+                                class="btn btn-danger">
+                            Delete
+                        </button>
+                    </td>
+                </tr>
+            }
+        </table>
+    </form>
 }
 else
 {
-    <h5>No products found in cart. </h5>
+<h5>No products found in cart. </h5>
 }
