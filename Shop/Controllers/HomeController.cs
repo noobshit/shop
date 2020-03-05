@@ -18,9 +18,21 @@ namespace Shop.Controllers
             _shopContext = shopContext;
         }
 
-        public IActionResult Index(int page = 0)
+        public IActionResult Index(int page = 0, string orderBy = "")
         {
-            var model = new PaginatedEnumeration<Product>(_shopContext.Products, page);
+            var products = _shopContext.Products.AsQueryable();
+
+            products = orderBy switch
+            {
+                "price_low" => products.OrderBy(p => p.Price),
+                "price_high" => products.OrderByDescending(p => p.Price),
+                "name_low" => products.OrderBy(p => p.Name),
+                "name_high" => products.OrderByDescending(p => p.Name),
+                "default" => products,
+                _ => products,
+            };
+
+            var model = new PaginatedEnumeration<Product>(products, page);
             return View(model);
         }
     }

@@ -4,6 +4,24 @@
     ViewBag.Title = "Shop";
 }
 
+<div>
+    <form method="get">
+        <div class="form-check form-check-inline">
+            <select class="form-control" name="orderBy">
+                <option selected>Order by...</option>
+                <option value="default">Default</option>
+                <option value="price_low">Low price first</option>
+                <option value="price_high">High price first</option>
+                <option value="name_low">Alphabetical order</option>
+                <option value="name_high">Reversed alphabetical order</option>
+            </select>
+        </div>
+        <div class="form-check form-check-inline">
+            <input type="submit" class="form-control" value="Sort"/>
+        </div>
+    </form>
+</div>
+
 <div class="card-deck">
     @foreach( var product in Model.Items )
     {
