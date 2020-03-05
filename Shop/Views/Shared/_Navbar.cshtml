@@ -1,6 +1,6 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @inject SignInManager<ShopUser> SignInManager
-
+@inject ICartSummary CartSummary
 
 <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
     <div class="container">
@@ -26,6 +26,14 @@
             <ul class="navbar-nav ml-auto">
                 @if( SignInManager.IsSignedIn(User) )
                 {
+
+                    <li class="nav-item">
+                        <a asp-controller="cart" 
+                           class="nav-link btn btn-link">
+                            <i class="fa fa-shopping-cart" style="font-size: 24px;"></i>
+                            <span>@CartSummary.ProductCount items for @CartSummary.TotalPayment.ToString("0.##")$</span>
+                        </a>
+                    </li>
                     <li class="nav-item">
                         <form method="post" asp-controller="user" asp-action="logout">
                             <button type="submit" 
