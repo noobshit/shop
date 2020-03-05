@@ -8,6 +8,6 @@ namespace Shop.Services
         void Add(int productId);
         void Remove(int productId);
         void SetCount(int productId, int value);
-        IEnumerable<CartProduct> List();
+        IList<CartProduct> List();
     }
 }

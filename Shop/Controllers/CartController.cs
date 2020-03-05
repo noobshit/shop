@@ -9,6 +9,7 @@ using Shop.Data;
 using Microsoft.EntityFrameworkCore;
 using Shop.Services;
 using Microsoft.AspNetCore.Authorization;
+using Shop.ViewModels;
 
 namespace Shop.Controllers
 {
@@ -16,14 +17,21 @@ namespace Shop.Controllers
     public class CartController : Controller
     {
         private readonly ICartManager _cartManager;
+        private readonly ICartSummary _cartSummary;
 
-        public CartController(ICartManager cartManager)
+        public CartController(ICartManager cartManager, ICartSummary cartSummary)
         {
             _cartManager = cartManager;
+            _cartSummary = cartSummary;
         }
         public IActionResult Index()
         {
-            return View(_cartManager.List());
+            var model = new ShowCartViewModel
+            {
+                CartProducts = _cartManager.List(),
+                TotalPayment = _cartSummary.TotalPayment,
+            };
+            return View(model);
         }
         
         public IActionResult Add(int id)
@@ -40,9 +48,10 @@ namespace Shop.Controllers
         }
 
         [HttpPost]
-        public IActionResult SetCount(IList<CartProduct> model, int id)
+        public IActionResult SetCount(ShowCartViewModel model, int id)
         {
-            _cartManager.SetCount(model[id].ProductId, model[id].Count);
+            var cp = model.CartProducts[id];
+            _cartManager.SetCount(cp.ProductId, cp.Count);
             return RedirectToAction("Index");
         }
     }

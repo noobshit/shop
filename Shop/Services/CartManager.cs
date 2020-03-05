@@ -67,7 +67,7 @@ namespace Shop.Services
             _shopContext.Remove(cartProduct);
             _shopContext.SaveChanges();
         }
-        public IEnumerable<CartProduct> List()
+        public IList<CartProduct> List()
         {
             return _shopContext.CartProducts
                 .Include(cp => cp.Product)

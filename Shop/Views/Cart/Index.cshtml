@@ -1,41 +1,52 @@
-﻿@model IList<CartProduct>
+﻿@model ShowCartViewModel
 
-@if( Model.Any() )
+@if( Model.CartProducts.Any() )
 {
     <form method="post">
-        <table>
-            <tr>
-                <th>Name</th>
-                <th>Count</th>
-            </tr>
-            @for( int i = 0; i < Model.Count; i++ )
-            {
-                <tr>
-                    <td>
-                        @Model[i].Product.Name
-                    </td>
-                    <td>
-                        <input hidden asp-for="@Model[i].ProductId" />
-                        <input asp-for="@Model[i].Count" />
-                    </td>
-                    <td>
-                        <button type="submit" asp-action="setCount" asp-route-id="@i" 
-                                class="btn btn-success">
-                            Save
-                        </button>
-                    </td>
-                    <td>
-                        <button type="submit" asp-action="delete" asp-route-id="@Model[i].ProductId"
-                                class="btn btn-danger">
-                            Delete
-                        </button>
-                    </td>
-                </tr>
-            }
+        <table class="table table-responsive">
+            <tbody>
+                @for( int i = 0; i < Model.CartProducts.Count; i++ )
+                {
+                    <tr>
+                        <td class="align-middle">
+                            <img src="~/images/products/@Model.CartProducts[i].Product.ImagePath"
+                                 style="width: 200px; height: 200px;" />
+                        </td>
+                        <td class="align-middle">
+                            <h4>@Model.CartProducts[i].Product.Name</h4>
+                        </td>
+                        <td class="align-middle">
+                            <h4>@Model.CartProducts[i].Product.Price$</h4>
+                        </td>
+                        <td class="align-middle">
+                            <div class="form-group">
+                                <input asp-for="@Model.CartProducts[i].ProductId"
+                                       hidden />
+                                <input asp-for="@Model.CartProducts[i].Count" />
+                            </div>
+                        </td>
+                        <td class="align-middle">
+                            <button type="submit" asp-action="setCount" asp-route-id="@i"
+                                    class="btn btn-success">
+                                Save
+                            </button>
+                        </td>
+                        <td class="align-middle">
+                            <button type="submit" asp-action="delete" asp-route-id="@Model.CartProducts[i].ProductId"
+                                    class="btn btn-danger">
+                                Remove
+                            </button>
+                        </td>
+                    </tr>
+                }
+            </tbody>
         </table>
+        <span class="text-right">
+            <h2>Total payment: @Model.TotalPayment.ToString("0.##")$</h2>
+        </span>
     </form>
 }
 else
 {
-<h5>No products found in cart. </h5>
+    <h5>No products found in cart. </h5>
 }
