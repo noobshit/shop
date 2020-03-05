@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Shop.Data;
 using Shop.Models;
+using Shop.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,9 +18,9 @@ namespace Shop.Controllers
             _shopContext = shopContext;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int page = 0)
         {
-            var model = _shopContext.Products;
+            var model = new PaginatedEnumeration<Product>(_shopContext.Products, page);
             return View(model);
         }
     }
