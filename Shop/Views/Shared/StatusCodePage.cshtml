@@ -1,0 +1,10 @@
+﻿@model ErrorViewModel
+@{
+    ViewBag.Title = $"Error {Model.ErrorCode.ToString()}";
+}
+
+<h1>Error - @Model.ErrorCode</h1>
+
+<a asp-action="index" asp-controller="home">
+    Click here to navigate to the home page
+</a>

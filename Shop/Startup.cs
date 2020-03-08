@@ -42,6 +42,7 @@ namespace Shop
             services.ConfigureApplicationCookie(options =>
             {
                 options.LoginPath = "/User/SignIn";
+                options.AccessDeniedPath = "/Error/403";
             });
 
             services.AddDbContextPool<ShopContext>(options =>
@@ -61,11 +62,17 @@ namespace Shop
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env) 
         {
+            Console.WriteLine(env.EnvironmentName);
             if( env.IsDevelopment() )
             {
                 app.UseDeveloperExceptionPage();
             }
+            else
+            {
+                app.UseExceptionHandler("/Error");
+            }
 
+            app.UseStatusCodePagesWithReExecute("/Error/{0}");
             app.UseStaticFiles();
             app.UseRouting();
             app.UseAuthentication();
