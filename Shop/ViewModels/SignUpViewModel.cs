@@ -20,5 +20,9 @@ namespace Shop.ViewModels
         [Display(Name ="Confirm password")]
         [Compare(nameof(Password), ErrorMessage ="Password doesn't match.")]
         public string ConfirmPassword { get; set; }
+
+        [Required]
+        [Display(Name ="Is admin?")]
+        public bool IsAdmin { get; set; }
     }
 }

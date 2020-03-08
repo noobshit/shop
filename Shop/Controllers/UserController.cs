@@ -42,6 +42,15 @@ namespace Shop.Controllers
 
                 if (result.Succeeded)
                 {
+                    if(model.IsAdmin)
+                    {
+                        await _userManager.AddToRoleAsync(user, "Admin");
+                    }
+                    else
+                    {
+                        await _userManager.AddToRoleAsync(user, "User");
+                    }
+
                     await _signInManager.SignInAsync(user, false);
                     return RedirectToAction("index", "home");
                 }

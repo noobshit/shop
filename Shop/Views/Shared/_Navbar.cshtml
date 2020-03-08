@@ -16,19 +16,23 @@
                         Home
                     </a>
                 </li>
-                <li class="nav-item">
-                    <a asp-action="index" asp-controller="product"
-                       class="nav-link btn btn-link">
-                        Products
-                    </a>
-                </li>
             </ul>
             <ul class="navbar-nav ml-auto">
                 @if( SignInManager.IsSignedIn(User) )
                 {
 
+                    @if( User.IsInRole("Admin") )
+                    {
+                        <li class="nav-item">
+                            <a asp-action="index" asp-controller="product"
+                               class="nav-link btn btn-link">
+                                Admin panel
+                            </a>
+                        </li>
+                    }
+
                     <li class="nav-item">
-                        <a asp-controller="cart" 
+                        <a asp-controller="cart"
                            class="nav-link btn btn-link">
                             <i class="fa fa-shopping-cart" style="font-size: 24px;"></i>
                             <span>@CartSummary.ProductCount items for @CartSummary.TotalPayment.ToString("0.##")$</span>
@@ -36,7 +40,7 @@
                     </li>
                     <li class="nav-item">
                         <form method="post" asp-controller="user" asp-action="logout">
-                            <button type="submit" 
+                            <button type="submit"
                                     class="nav-link btn btn-link mx-auto">
                                 Logout @User.Identity.Name
                             </button>
