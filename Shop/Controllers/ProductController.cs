@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -19,22 +20,25 @@ namespace Shop.Controllers
     {
         private readonly ShopContext _context;
         private readonly IImageManager _imageManager;
+        private readonly IMapper _mapper;
 
-        public ProductController(ShopContext context, IImageManager imageManager)
+        public ProductController(ShopContext context, IImageManager imageManager, IMapper mapper)
         {
             _context = context;
             _imageManager = imageManager;
+            _mapper = mapper;
         }
         public IActionResult Index()
         {
-            var products = _context.Products.ToList();
+            var products = _mapper.ProjectTo<ProductViewModel>(_context.Products).ToList();
             return View(products);
         }
 
         public IActionResult Details(int id)
         {
             var product = _context.Products.FirstOrDefault(p => p.Id == id);
-            return View(product);
+            var viewModel = _mapper.Map<ProductViewModel>(product);
+            return View(viewModel);
         }
 
         [HttpGet]
@@ -78,7 +82,8 @@ namespace Shop.Controllers
             {
                 return NotFound();
             }
-            return View(product);
+            var viewModel = _mapper.Map<ProductViewModel>(product);
+            return View(viewModel);
         }
 
         [HttpPost]

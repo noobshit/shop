@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using Shop.Data;
 using Shop.Models;
 using Shop.ViewModels;
@@ -12,10 +13,12 @@ namespace Shop.Controllers
     public class HomeController : Controller
     {
         private readonly ShopContext _shopContext;
+        private readonly IMapper _mapper;
 
-        public HomeController(ShopContext shopContext)
+        public HomeController(ShopContext shopContext, IMapper mapper)
         {
             _shopContext = shopContext;
+            _mapper = mapper;
         }
 
         public IActionResult Index(int page = 0, string orderBy = "")
@@ -32,7 +35,8 @@ namespace Shop.Controllers
                 _ => products,
             };
 
-            var model = new PaginatedEnumeration<Product>(products, page);
+            var productViewModels = _mapper.ProjectTo<ProductViewModel>(products);
+            var model = new PaginatedEnumeration<ProductViewModel>(productViewModels, page);
             return View(model);
         }
     }
