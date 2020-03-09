@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using Shop.Services;
 using Microsoft.AspNetCore.Authorization;
 using Shop.ViewModels;
+using AutoMapper;
 
 namespace Shop.Controllers
 {
@@ -17,20 +18,18 @@ namespace Shop.Controllers
     public class CartController : Controller
     {
         private readonly ICartManager _cartManager;
-        private readonly ICartSummary _cartSummary;
+        private readonly IMapper _mapper;
 
-        public CartController(ICartManager cartManager, ICartSummary cartSummary)
+        public CartController(ICartManager cartManager, IMapper mapper)
         {
             _cartManager = cartManager;
-            _cartSummary = cartSummary;
+            _mapper = mapper;
         }
         public IActionResult Index()
         {
-            var model = new ShowCartViewModel
-            {
-                CartProducts = _cartManager.List(),
-                TotalPayment = _cartSummary.TotalPayment,
-            };
+            var model = _cartManager.List()
+                    .Select(_mapper.Map<CartProductViewModel>)
+                    .ToList();
             return View(model);
         }
         
@@ -48,11 +47,14 @@ namespace Shop.Controllers
         }
 
         [HttpPost]
-        public IActionResult SetCount(ShowCartViewModel model, int id)
+        public IActionResult SetCount(IList<CartProductViewModel> model, int id)
         {
-            var cp = model.CartProducts[id];
-            _cartManager.SetCount(cp.ProductId, cp.Count);
-            return RedirectToAction("Index");
+            if( ModelState.IsValid )
+            { 
+                var cp = model[id];
+                _cartManager.SetCount(cp.ProductId, cp.Count);
+            }
+            return View("Index", model);
         }
     }
 }

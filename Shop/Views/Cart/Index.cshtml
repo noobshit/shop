@@ -1,28 +1,36 @@
-﻿@model ShowCartViewModel
+﻿@model IList<CartProductViewModel>
+@inject ICartSummary CartSummary
 
-@if( Model.CartProducts.Any() )
+@if( Model.Any() )
 {
     <form method="post">
         <table class="table table-responsive">
             <tbody>
-                @for( int i = 0; i < Model.CartProducts.Count; i++ )
+                @for( int i = 0; i < Model.Count; i++ )
                 {
                     <tr>
                         <td class="align-middle">
-                            <img src="~/images/products/@Model.CartProducts[i].Product.ImagePath"
+                            <img src="~/images/products/@Model[i].ProductImagePath"
                                  style="width: 200px; height: 200px;" />
                         </td>
                         <td class="align-middle">
-                            <h4>@Model.CartProducts[i].Product.Name</h4>
+                            <h4>@Model[i].ProductName</h4>
                         </td>
                         <td class="align-middle">
-                            <h4>@Model.CartProducts[i].Product.Price$</h4>
+                            <h4>@Model[i].ProductPrice$</h4>
                         </td>
                         <td class="align-middle">
                             <div class="form-group">
-                                <input asp-for="@Model.CartProducts[i].ProductId"
+                                <input asp-for="@Model[i].ProductId"
                                        hidden />
-                                <input asp-for="@Model.CartProducts[i].Count" />
+                                <input asp-for="@Model[i].ProductImagePath"
+                                       hidden />
+                                <input asp-for="@Model[i].ProductName"
+                                       hidden />
+                                <input asp-for="@Model[i].ProductPrice"
+                                       hidden />
+                                <input asp-for="@Model[i].Count" />
+                                <span asp-validation-for="@Model[i].Count" class="text-danger"></span>
                             </div>
                         </td>
                         <td class="align-middle">
@@ -32,7 +40,7 @@
                             </button>
                         </td>
                         <td class="align-middle">
-                            <button type="submit" asp-action="delete" asp-route-id="@Model.CartProducts[i].ProductId"
+                            <button type="submit" asp-action="delete" asp-route-id="@Model[i].ProductId"
                                     class="btn btn-danger">
                                 Remove
                             </button>
@@ -42,7 +50,7 @@
             </tbody>
         </table>
         <span class="text-right">
-            <h2>Total payment: @Model.TotalPayment.ToString("0.##")$</h2>
+            <h2>Total payment: @CartSummary.TotalPayment.ToString("0.##")$</h2>
         </span>
     </form>
 }

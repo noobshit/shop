@@ -12,6 +12,7 @@ namespace Shop.Models
         public AutoMapping()
         {
             CreateMap<Product, ProductViewModel>();
+            CreateMap<CartProduct, CartProductViewModel>();
         }
     }
 }
