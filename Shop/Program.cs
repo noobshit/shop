@@ -18,18 +18,6 @@ namespace Shop
         public static void Main(string[] args)
         {
             var host = CreateHostBuilder(args).Build();
-            using( var scope = host.Services.CreateScope() )
-            {
-                var serviceProvider = scope.ServiceProvider;
-                try
-                {
-                    SeedData.Roles(serviceProvider.GetRequiredService<RoleManager<IdentityRole>>());
-                }
-                catch (Exception ex)
-                {
-                    Debug.WriteLine(ex.Message);
-                }
-            }
             host.Run();
         }
 

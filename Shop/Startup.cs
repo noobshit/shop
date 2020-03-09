@@ -62,7 +62,6 @@ namespace Shop
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env) 
         {
-            Console.WriteLine(env.EnvironmentName);
             if( env.IsDevelopment() )
             {
                 app.UseDeveloperExceptionPage();
@@ -85,6 +84,30 @@ namespace Shop
                     pattern: "{controller=Home}/{action=Index}/{id?}");
             });
 
+            UpdateDatabase(app);
+        }
+
+
+        private static void UpdateDatabase(IApplicationBuilder app)
+        {
+            try
+            {
+                using( var serviceScope = app.ApplicationServices
+                    .GetRequiredService<IServiceScopeFactory>()
+                    .CreateScope() )
+                {
+                    var serviceProvider = serviceScope.ServiceProvider;
+                    using( var context = serviceProvider.GetService<ShopContext>() )
+                    {
+                        context.Database.Migrate();
+                    }
+                    SeedData.Roles(serviceProvider.GetRequiredService<RoleManager<IdentityRole>>());
+                }
+            }
+            catch
+            {
+
+            }
         }
     }
 }
