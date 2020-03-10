@@ -35,5 +35,11 @@ namespace Shop.Web.Controllers
             var model = new PaginatedEnumeration<ProductViewModel>(productViewModels, page);
             return View(model);
         }
+
+        public IActionResult Details(int id)
+        {
+            var model = _mapper.Map<ProductViewModel>(_shopContext.Products.Find(id));
+            return View(model);
+        }
     }
 }
