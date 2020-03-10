@@ -31,7 +31,7 @@
     <nav>
         <ul class="pagination justify-content-center">
             <li class="page-item @(Model.HasPreviousPage ? "" : "disabled")">
-                <a class="page-link" asp-route-page="@(Model.Page - 1)">Previous</a>
+                <a class="page-link" asp-route-page="@(Model.Page - 1)" asp-route-orderBy="@Context.Request.Query["orderBy"]">Previous</a>
             </li>
 
             <li class="page-item">
@@ -39,7 +39,7 @@
             </li>
 
             <li class="page-item @(Model.HasNextPage ? "" : "disabled")">
-                <a class="page-link" asp-route-page="@(Model.Page+1)">Next</a>
+                <a class="page-link" asp-route-page="@(Model.Page+1)" asp-route-orderBy="@Context.Request.Query["orderBy"]">Next</a>
             </li>
         </ul>
     </nav>
