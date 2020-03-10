@@ -4,10 +4,10 @@
     ViewBag.Title = "Shop";
 }
 
-<div>
+<div class="mt-3 p-1 text-right">
     <form method="get">
-        <div class="form-check form-check-inline">
-            <select class="form-control" name="orderBy">
+        <div class="form-group form-check form-check-inline">
+            <select class="form-control" name="orderBy" onchange="this.form.submit()">
                 <option selected>Order by...</option>
                 <option value="default">Default</option>
                 <option value="price_low">Low price first</option>
@@ -16,13 +16,10 @@
                 <option value="name_high">Reversed alphabetical order</option>
             </select>
         </div>
-        <div class="form-check form-check-inline">
-            <input type="submit" class="form-control" value="Sort"/>
-        </div>
     </form>
 </div>
 
-<div class="card-deck">
+<div class="mt-3 card-deck">
     @foreach( var product in Model.Items )
     {
         <div style="width: 30%">
@@ -30,7 +27,7 @@
         </div>
     }
 </div>
-<div>
+<div class="mt-3">
     <nav>
         <ul class="pagination justify-content-center">
             <li class="page-item @(Model.HasPreviousPage ? "" : "disabled")">
@@ -38,7 +35,7 @@
             </li>
 
             <li class="page-item">
-                <a class="page-link active" href="#">@(Model.Page+1)</a>
+                <a class="page-link active" href="#">@(Model.Page + 1)</a>
             </li>
 
             <li class="page-item @(Model.HasNextPage ? "" : "disabled")">
