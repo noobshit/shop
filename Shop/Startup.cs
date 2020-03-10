@@ -58,6 +58,7 @@ namespace Shop
             services.AddScoped<ICartManager, CartManager>();
             services.AddScoped<IImageManager, ImageManager>();
             services.AddTransient<ICartSummary, CartSummary>();
+            services.AddTransient<IUserManager, UserManager>();
             services.AddMvc();
         }
 
