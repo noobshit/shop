@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Diagnostics;
+﻿using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Shop.ViewModels;
+using Shop.Web.ViewModels;
 
-namespace Shop.Controllers
+namespace Shop.Web.Controllers
 {
     public class ErrorController : Controller
     {

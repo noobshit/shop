@@ -1,7 +1,7 @@
 ﻿using Shop.Data.Models;
 using System.Collections.Generic;
 
-namespace Shop.Services
+namespace Shop.Web.Services
 {
     public interface ICartManager
     {

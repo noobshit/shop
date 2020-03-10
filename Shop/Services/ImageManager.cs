@@ -6,7 +6,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Shop.Services
+namespace Shop.Web.Services
 {
     public class ImageManager : IImageManager
     {

@@ -1,19 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Linq;
 using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Shop.Data.Context;
 using Shop.Data.Models;
-using Shop.Services;
-using Shop.ViewModels;
+using Shop.Web.Services;
+using Shop.Web.ViewModels;
 
-namespace Shop.Controllers
+namespace Shop.Web.Controllers
 {
     [Authorize(Roles = "Admin")]
     public class ProductController : Controller

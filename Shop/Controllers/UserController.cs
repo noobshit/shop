@@ -1,13 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Shop.Data.Models;
-using Shop.ViewModels;
+using Shop.Web.ViewModels;
 
-namespace Shop.Controllers
+namespace Shop.Web.Controllers
 {
     public class UserController : Controller
     {

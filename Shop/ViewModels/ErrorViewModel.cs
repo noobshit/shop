@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Shop.ViewModels
+namespace Shop.Web.ViewModels
 {
     public class ErrorViewModel
     {

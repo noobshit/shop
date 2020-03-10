@@ -1,7 +1,7 @@
 ﻿using AutoMapper;
 using Shop.Data.Models;
 
-namespace Shop.ViewModels
+namespace Shop.Web.ViewModels
 {
     public class AutoMapping : Profile
     {

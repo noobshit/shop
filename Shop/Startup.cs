@@ -8,9 +8,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Shop.Data.Context;
 using Shop.Data.Models;
-using Shop.Services;
+using Shop.Web.Services;
 
-namespace Shop
+namespace Shop.Web
 {
     public class Startup
     {

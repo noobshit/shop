@@ -1,6 +1,6 @@
 ﻿using System.Security.Claims;
 
-namespace Shop.Services
+namespace Shop.Web.Services
 {
     public interface IUserManager
     {

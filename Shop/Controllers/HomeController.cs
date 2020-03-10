@@ -1,10 +1,10 @@
 ﻿using AutoMapper;
 using Microsoft.AspNetCore.Mvc;
 using Shop.Data.Context;
-using Shop.ViewModels;
+using Shop.Web.ViewModels;
 using System.Linq;
 
-namespace Shop.Controllers
+namespace Shop.Web.Controllers
 {
     public class HomeController : Controller
     {

@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Shop.ViewModels
+namespace Shop.Web.ViewModels
 {
     public class EditProductViewModel
     {

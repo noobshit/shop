@@ -1,9 +1,9 @@
-using Shop.ViewModels;
+using Shop.Web.ViewModels;
 using System;
 using System.Linq;
 using Xunit;
 
-namespace ShopTests
+namespace Shop.Tests
 {
     public class PaginationTests
     {

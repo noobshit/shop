@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Shop.ViewModels
+namespace Shop.Web.ViewModels
 {
     public class PaginatedEnumeration<TItem>
     {

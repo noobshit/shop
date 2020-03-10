@@ -1,12 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
-using Shop.Services;
 using Microsoft.AspNetCore.Authorization;
-using Shop.ViewModels;
 using AutoMapper;
+using Shop.Web.ViewModels;
+using Shop.Web.Services;
 
-namespace Shop.Controllers
+namespace Shop.Web.Controllers
 {
     [Authorize]
     public class CartController : Controller

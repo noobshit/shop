@@ -11,7 +11,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Shop.Data;
 
-namespace Shop
+namespace Shop.Web
 {
     public class Program
     {

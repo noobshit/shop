@@ -2,7 +2,7 @@
 using System.Security.Claims;
 using Shop.Data.Models;
 
-namespace Shop.Services
+namespace Shop.Web.Services
 {
     public class UserManager : IUserManager
     {
