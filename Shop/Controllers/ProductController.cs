@@ -8,8 +8,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Shop.Data;
-using Shop.Models;
+using Shop.Data.Context;
+using Shop.Data.Models;
 using Shop.Services;
 using Shop.ViewModels;
 

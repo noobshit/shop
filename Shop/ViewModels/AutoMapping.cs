@@ -1,11 +1,7 @@
-﻿using Shop.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using AutoMapper;
+﻿using AutoMapper;
+using Shop.Data.Models;
 
-namespace Shop.Models
+namespace Shop.ViewModels
 {
     public class AutoMapping : Profile
     {

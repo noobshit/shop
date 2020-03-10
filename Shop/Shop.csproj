@@ -5,11 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Migrations\20200302195347_AddShopUserWithCart.cs" />
-    <Compile Remove="Migrations\20200302195347_AddShopUserWithCart.Designer.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="7.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="3.1.2" />
@@ -46,6 +41,10 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\images\products\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Shop.Data\Shop.Data.csproj" />
   </ItemGroup>
 
 </Project>

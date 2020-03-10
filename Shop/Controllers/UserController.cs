@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Shop.Models;
+using Shop.Data.Models;
 using Shop.ViewModels;
 
 namespace Shop.Controllers

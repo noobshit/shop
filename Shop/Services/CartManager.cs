@@ -1,8 +1,8 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Shop.Data;
-using Shop.Models;
+using Shop.Data.Context;
+using Shop.Data.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;

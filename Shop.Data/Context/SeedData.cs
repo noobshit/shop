@@ -1,11 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace Shop.Data
+namespace Shop.Data.Context
 {
     public static class SeedData
     {
@@ -14,7 +9,7 @@ namespace Shop.Data
             var roleNames = new string[] { "Admin", "User" };
 
             foreach( var roleName in roleNames )
-            { 
+            {
                 if( !roleManager.RoleExistsAsync(roleName).Result )
                 {
                     var role = new IdentityRole(roleName);

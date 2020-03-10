@@ -5,13 +5,13 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Shop.Data;
+using Shop.Data.Context;
 
-namespace Shop.Migrations
+namespace Shop.Data.Migrations
 {
     [DbContext(typeof(ShopContext))]
-    [Migration("20200228110325_AddImagePath")]
-    partial class AddImagePath
+    [Migration("20200302123208_SeedDb")]
+    partial class SeedDb
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -237,6 +237,71 @@ namespace Shop.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Products");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            ImagePath = "sample_1.jpg",
+                            Name = "Ladder",
+                            Price = 125.0m
+                        },
+                        new
+                        {
+                            Id = 2,
+                            ImagePath = "sample_2.jpg",
+                            Name = "Drill",
+                            Price = 150m
+                        },
+                        new
+                        {
+                            Id = 3,
+                            ImagePath = "sample_3.jpg",
+                            Name = "Grinder",
+                            Price = 150m
+                        },
+                        new
+                        {
+                            Id = 4,
+                            ImagePath = "sample_4.jpg",
+                            Name = "Gloves",
+                            Price = 3.5m
+                        },
+                        new
+                        {
+                            Id = 5,
+                            ImagePath = "sample_5.jpg",
+                            Name = "Thermometer",
+                            Price = 19.99m
+                        },
+                        new
+                        {
+                            Id = 6,
+                            ImagePath = "sample_6.jpg",
+                            Name = "Measure tape",
+                            Price = 3.5m
+                        },
+                        new
+                        {
+                            Id = 7,
+                            ImagePath = "sample_7.jpg",
+                            Name = "WD40",
+                            Price = 7m
+                        },
+                        new
+                        {
+                            Id = 8,
+                            ImagePath = "sample_8.jpg",
+                            Name = "Screwdrivers",
+                            Price = 12.99m
+                        },
+                        new
+                        {
+                            Id = 9,
+                            ImagePath = "sample_9.jpg",
+                            Name = "Lawnmower",
+                            Price = 199.99m
+                        });
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>

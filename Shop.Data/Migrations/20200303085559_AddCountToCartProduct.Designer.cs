@@ -5,13 +5,13 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Shop.Data;
+using Shop.Data.Context;
 
-namespace Shop.Migrations
+namespace Shop.Data.Migrations
 {
     [DbContext(typeof(ShopContext))]
-    [Migration("20200302203151_AddCartToUser")]
-    partial class AddCartToUser
+    [Migration("20200303085559_AddCountToCartProduct")]
+    partial class AddCountToCartProduct
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -170,6 +170,9 @@ namespace Shop.Migrations
                         .HasColumnType("int");
 
                     b.Property<int>("ProductId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Count")
                         .HasColumnType("int");
 
                     b.HasKey("CartId", "ProductId");

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System.Security.Claims;
-using Shop.Models;
+using Shop.Data.Models;
 
 namespace Shop.Services
 {

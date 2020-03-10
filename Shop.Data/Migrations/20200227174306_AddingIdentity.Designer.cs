@@ -5,9 +5,9 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Shop.Data;
+using Shop.Data.Context;
 
-namespace Shop.Migrations
+namespace Shop.Data.Migrations
 {
     [DbContext(typeof(ShopContext))]
     [Migration("20200227174306_AddingIdentity")]

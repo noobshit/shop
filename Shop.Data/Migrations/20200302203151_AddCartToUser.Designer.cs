@@ -5,13 +5,13 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
-using Shop.Data;
+using Shop.Data.Context;
 
-namespace Shop.Migrations
+namespace Shop.Data.Migrations
 {
     [DbContext(typeof(ShopContext))]
-    [Migration("20200304144639_IncludeMoreProductSamples")]
-    partial class IncludeMoreProductSamples
+    [Migration("20200302203151_AddCartToUser")]
+    partial class AddCartToUser
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -172,9 +172,6 @@ namespace Shop.Migrations
                     b.Property<int>("ProductId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Count")
-                        .HasColumnType("int");
-
                     b.HasKey("CartId", "ProductId");
 
                     b.HasIndex("ProductId");
@@ -266,111 +263,6 @@ namespace Shop.Migrations
                             ImagePath = "sample_9.jpg",
                             Name = "Lawnmower",
                             Price = 199.99m
-                        },
-                        new
-                        {
-                            Id = 10,
-                            ImagePath = "sample_10.jpg",
-                            Name = "Drainpipe",
-                            Price = 29m
-                        },
-                        new
-                        {
-                            Id = 11,
-                            ImagePath = "sample_11.jpg",
-                            Name = "Window",
-                            Price = 400m
-                        },
-                        new
-                        {
-                            Id = 12,
-                            ImagePath = "sample_12.jpg",
-                            Name = "Coal",
-                            Price = 22.99m
-                        },
-                        new
-                        {
-                            Id = 13,
-                            ImagePath = "sample_13.jpg",
-                            Name = "Plywood",
-                            Price = 7.50m
-                        },
-                        new
-                        {
-                            Id = 14,
-                            ImagePath = "sample_14.jpg",
-                            Name = "Brick",
-                            Price = 3.99m
-                        },
-                        new
-                        {
-                            Id = 15,
-                            ImagePath = "sample_15.jpg",
-                            Name = "Cement mixer",
-                            Price = 400.0m
-                        },
-                        new
-                        {
-                            Id = 16,
-                            ImagePath = "sample_16.jpg",
-                            Name = "Barrow",
-                            Price = 199.99m
-                        },
-                        new
-                        {
-                            Id = 17,
-                            ImagePath = "sample_17.jpg",
-                            Name = "Sink",
-                            Price = 169.99m
-                        },
-                        new
-                        {
-                            Id = 18,
-                            ImagePath = "sample_18.jpg",
-                            Name = "Board",
-                            Price = 35.0m
-                        },
-                        new
-                        {
-                            Id = 19,
-                            ImagePath = "sample_19.jpg",
-                            Name = "Lamp",
-                            Price = 79.99m
-                        },
-                        new
-                        {
-                            Id = 20,
-                            ImagePath = "sample_20.jpg",
-                            Name = "LED Strip",
-                            Price = 30.99m
-                        },
-                        new
-                        {
-                            Id = 21,
-                            ImagePath = "sample_21.jpg",
-                            Name = "Paper bag",
-                            Price = 0.99m
-                        },
-                        new
-                        {
-                            Id = 22,
-                            ImagePath = "sample_22.jpg",
-                            Name = "Saw",
-                            Price = 39.99m
-                        },
-                        new
-                        {
-                            Id = 23,
-                            ImagePath = "sample_23.jpg",
-                            Name = "Knife",
-                            Price = 19.99m
-                        },
-                        new
-                        {
-                            Id = 24,
-                            ImagePath = "sample_24.jpg",
-                            Name = "Scissors",
-                            Price = 9.99m
                         });
                 });
 

@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace Shop.Migrations
+namespace Shop.Data.Migrations
 {
     public partial class AddCountToCartProduct : Migration
     {

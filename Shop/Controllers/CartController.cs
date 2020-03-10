@@ -1,12 +1,6 @@
-﻿using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Mvc;
-using System;
+﻿using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
-using Shop.Models;
-using Shop.Data;
-using Microsoft.EntityFrameworkCore;
 using Shop.Services;
 using Microsoft.AspNetCore.Authorization;
 using Shop.ViewModels;

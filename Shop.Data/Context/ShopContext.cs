@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using Shop.Models;
+using Shop.Data.Models;
 
-namespace Shop.Data
+namespace Shop.Data.Context
 {
-    public class ShopContext : IdentityDbContext<ShopUser> 
+    public class ShopContext : IdentityDbContext<ShopUser>
     {
         public ShopContext(DbContextOptions<ShopContext> options) : base(options)
         {
@@ -23,18 +23,18 @@ namespace Shop.Data
             modelBuilder.Entity<CartProduct>().HasKey(cp => new { cp.CartId, cp.ProductId });
 
             modelBuilder.Entity<Product>().HasData(
-                new Product { Id=1, ImagePath="sample_1.jpg", Name="Ladder", Price=125.0M},
-                new Product { Id=2, ImagePath="sample_2.jpg", Name="Drill", Price=150M},
-                new Product { Id=3, ImagePath="sample_3.jpg", Name="Grinder", Price=150M},
-                new Product { Id=4, ImagePath="sample_4.jpg", Name="Gloves", Price=3.5M},
-                new Product { Id=5, ImagePath="sample_5.jpg", Name="Thermometer", Price=19.99M},
-                new Product { Id=6, ImagePath="sample_6.jpg", Name="Measure tape", Price=3.5M},
-                new Product { Id=7, ImagePath="sample_7.jpg", Name="WD40", Price=7M},
-                new Product { Id=8, ImagePath="sample_8.jpg", Name="Screwdrivers", Price=12.99M},
+                new Product { Id = 1, ImagePath = "sample_1.jpg", Name = "Ladder", Price = 125.0M },
+                new Product { Id = 2, ImagePath = "sample_2.jpg", Name = "Drill", Price = 150M },
+                new Product { Id = 3, ImagePath = "sample_3.jpg", Name = "Grinder", Price = 150M },
+                new Product { Id = 4, ImagePath = "sample_4.jpg", Name = "Gloves", Price = 3.5M },
+                new Product { Id = 5, ImagePath = "sample_5.jpg", Name = "Thermometer", Price = 19.99M },
+                new Product { Id = 6, ImagePath = "sample_6.jpg", Name = "Measure tape", Price = 3.5M },
+                new Product { Id = 7, ImagePath = "sample_7.jpg", Name = "WD40", Price = 7M },
+                new Product { Id = 8, ImagePath = "sample_8.jpg", Name = "Screwdrivers", Price = 12.99M },
                 new Product { Id = 9, ImagePath = "sample_9.jpg", Name = "Lawnmower", Price = 199.99M },
                 new Product { Id = 10, ImagePath = "sample_10.jpg", Name = "Drainpipe", Price = 29M },
-                new Product { Id = 11, ImagePath = "sample_11.jpg", Name = "Window", Price = 400M},
-                new Product { Id = 12, ImagePath = "sample_12.jpg", Name = "Coal", Price = 22.99M},
+                new Product { Id = 11, ImagePath = "sample_11.jpg", Name = "Window", Price = 400M },
+                new Product { Id = 12, ImagePath = "sample_12.jpg", Name = "Coal", Price = 22.99M },
                 new Product { Id = 13, ImagePath = "sample_13.jpg", Name = "Plywood", Price = 7.50M },
                 new Product { Id = 14, ImagePath = "sample_14.jpg", Name = "Brick", Price = 3.99M },
                 new Product { Id = 15, ImagePath = "sample_15.jpg", Name = "Cement mixer", Price = 400.0M },
