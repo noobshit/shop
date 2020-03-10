@@ -9,6 +9,8 @@ namespace Shop.Web.ViewModels
         {
             CreateMap<Product, ProductViewModel>();
             CreateMap<CartProduct, CartProductViewModel>();
+            CreateMap<Contact, ContactViewModel>();
+            CreateMap<ContactViewModel, Contact>();
         }
     }
 }

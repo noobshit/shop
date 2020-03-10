@@ -1,6 +1,8 @@
 ﻿using System.Threading.Tasks;
+using AutoMapper;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Shop.Data.Context;
 using Shop.Data.Models;
 using Shop.Web.ViewModels;
 
@@ -10,11 +12,15 @@ namespace Shop.Web.Controllers
     {
         private readonly UserManager<ShopUser> _userManager;
         private readonly SignInManager<ShopUser> _signInManager;
+        private readonly IMapper _mapper;
+        private readonly ShopContext _shopContext;
 
-        public UserController(UserManager<ShopUser> userManager, SignInManager<ShopUser> signInManager)
+        public UserController(UserManager<ShopUser> userManager, SignInManager<ShopUser> signInManager, IMapper mapper, ShopContext shopContext)
         {
             _userManager = userManager;
             _signInManager = signInManager;
+            _mapper = mapper;
+            _shopContext = shopContext;
         }
 
         [HttpGet]
@@ -98,6 +104,49 @@ namespace Shop.Web.Controllers
             }
 
             return View();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> EditDetails()
+        {
+            var user = await _userManager.GetUserAsync(HttpContext.User);
+
+            if (user == null)
+            {
+                return RedirectToAction("SignIn");
+            }
+
+            var model =  _mapper.Map<ContactViewModel>(user.Contact);
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditDetails(ContactViewModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await _userManager.GetUserAsync(HttpContext.User);
+
+                if (user == null)
+                {
+                    return RedirectToAction("SignIn");
+                }
+
+                if (user.Contact != null)
+                {
+                    model.Id = user.Contact.Id;
+                    _mapper.Map(model, user.Contact);
+                    _shopContext.SaveChanges();
+                } 
+                else
+                {
+                    var contact = _mapper.Map<Contact>(model);
+                    user.Contact = contact;
+                    _shopContext.SaveChanges();
+                }
+            }
+
+            return View(model);
         }
     }
 }
