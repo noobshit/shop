@@ -2,15 +2,16 @@
 
 @{
     ViewData["Title"] = "EditDetails";
+    ViewBag.ReturnUrl = Context.Request.Query["returnUrl"];
 }
 
-<h1>EditDetails</h1>
-
-<h4>ContactViewModel</h4>
+<h4>Contact details</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="EditDetails">
+            <input name="ReturnUrl" value="@ViewBag.ReturnUrl" 
+                   hidden/>
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <input asp-validation-for="Id" class="text-danger" hidden>
@@ -52,12 +53,15 @@
             </div>
             <div class="form-group">
                 <input type="submit" value="Save" class="btn btn-primary" />
+                <a asp-controller="Home" asp-action="Index"
+                   class="btn btn-danger">
+                    Cancel
+                </a>
             </div>
         </form>
     </div>
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
 </div>
 

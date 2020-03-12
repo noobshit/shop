@@ -122,7 +122,7 @@ namespace Shop.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> EditDetails(ContactViewModel model)
+        public async Task<IActionResult> EditDetails(ContactViewModel model, string returnUrl)
         {
             if (ModelState.IsValid)
             {
@@ -147,7 +147,12 @@ namespace Shop.Web.Controllers
                 }
             }
 
-            return View(model);
+            if( string.IsNullOrEmpty(returnUrl))
+            {
+                return View(model);
+            }
+
+            return Redirect(returnUrl);
         }
     }
 }
