@@ -1,6 +1,10 @@
 ﻿@model IList<CartProductViewModel>
 @inject ICartSummary CartSummary
 
+@{ 
+    ViewBag.Title = "Cart";
+}
+
 @if( Model.Any() )
 {
     <form method="post">

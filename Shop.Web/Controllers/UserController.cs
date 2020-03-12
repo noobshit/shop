@@ -26,7 +26,8 @@ namespace Shop.Web.Controllers
         [HttpGet]
         public IActionResult SignUp()
         {
-            return View();
+            var model = new SignUpViewModel();
+            return View(model);
         }
 
         [HttpPost]
@@ -45,7 +46,7 @@ namespace Shop.Web.Controllers
 
                 if (result.Succeeded)
                 {
-                    if(model.IsAdmin)
+                    if(model.Role == "Admin")
                     {
                         await _userManager.AddToRoleAsync(user, "Admin");
                     }
@@ -64,7 +65,7 @@ namespace Shop.Web.Controllers
                 }
             }
 
-            return View();
+            return View(model);
         }
 
         [HttpPost]

@@ -31,7 +31,7 @@
                     }
 
                     <li class="nav-item">
-                        <a asp-controller="cart"
+                        <a asp-controller="cart" asp-action="index"
                            class="nav-link btn btn-link">
                             <i class="fa fa-shopping-cart" style="font-size: 24px;"></i>
                             <span>@CartSummary.ProductCount items for @CartSummary.TotalPayment.ToString("0.##")$</span>

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
@@ -21,8 +22,14 @@ namespace Shop.Web.ViewModels
         [Compare(nameof(Password), ErrorMessage ="Password doesn't match.")]
         public string ConfirmPassword { get; set; }
 
+        public List<SelectListItem> Roles { get; } = new List<SelectListItem>
+        {
+            new SelectListItem { Value="User", Text="User" },
+            new SelectListItem { Value="Admin", Text="Admin" },
+        };
+
         [Required]
-        [Display(Name ="Is admin?")]
-        public bool IsAdmin { get; set; }
+        [Display(Name = "Choose role")]
+        public string Role { get; set; }
     }
 }
