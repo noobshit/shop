@@ -1,5 +1,9 @@
 ﻿@inject IUserManager UserManager
-@inject ICartSummary CartSummary
+
+@{ 
+    var userIsSignedIn = UserManager.IsSignedIn(User);
+    var showAdminPanel = User.IsInRole("Admin");
+}
 
 <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
     <div class="container">
@@ -10,56 +14,24 @@
         <div class="navbar-collapse collapse" id="collapsible">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
-                    <a asp-action="index" asp-controller="home"
-                       class="nav-link btn btn-link">
+                    <a asp-action="index" asp-controller="home" class="nav-link btn btn-link">
                         Home
                     </a>
                 </li>
             </ul>
             <ul class="navbar-nav ml-auto">
-                @if( UserManager.IsSignedIn(User) )
+                @if( userIsSignedIn )
                 {
-
-                    @if( User.IsInRole("Admin") )
+                    @if( showAdminPanel )
                     {
-                        <li class="nav-item">
-                            <a asp-action="index" asp-controller="product"
-                               class="nav-link btn btn-link">
-                                Admin panel
-                            </a>
-                        </li>
+                        <partial name="_NavbarAdminOptions" />
                     }
 
-                    <li class="nav-item">
-                        <a asp-controller="cart" asp-action="index"
-                           class="nav-link btn btn-link">
-                            <i class="fa fa-shopping-cart" style="font-size: 24px;"></i>
-                            <span>@CartSummary.ProductCount items for @CartSummary.TotalPayment.ToString("0.##")$</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <form method="post" asp-controller="user" asp-action="logout">
-                            <button type="submit"
-                                    class="nav-link btn btn-link mx-auto">
-                                Logout @User.Identity.Name
-                            </button>
-                        </form>
-                    </li>
+                    <partial name="_NavbarUserOptions" />
                 }
                 else
                 {
-                    <li class="nav-item">
-                        <a asp-controller="User" asp-action="SignUp"
-                           class="nav-link btn btn-link">
-                            Sign up
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a asp-controller="User" asp-action="SignIn"
-                           class="nav-link btn btn-link">
-                            Sign in
-                        </a>
-                    </li>
+                    <partial name="_NavbarGuestOptions" />
                 }
             </ul>
          </div>
