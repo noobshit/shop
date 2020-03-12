@@ -11,6 +11,8 @@ namespace Shop.Web.ViewModels
             CreateMap<CartProduct, CartProductViewModel>();
             CreateMap<Contact, ContactViewModel>();
             CreateMap<ContactViewModel, Contact>();
+            CreateMap<Order, OrderDetailsViewModel>();
+            CreateMap<OrderItem, OrderItemViewModel>();
         }
     }
 }

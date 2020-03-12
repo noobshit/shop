@@ -56,6 +56,7 @@
         <span class="text-right">
             <h2>Total payment: @CartSummary.TotalPayment.ToString("0.##")$</h2>
         </span>
+        <a asp-controller="Order" asp-action="MakeOrder">Make an order</a>
     </form>
 }
 else

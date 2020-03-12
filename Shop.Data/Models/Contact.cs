@@ -10,5 +10,12 @@
         public string Street { get; set; }
         public string PostalCode { get; set; }
         public string Country { get; set; }
+
+        public Contact Clone()
+        {
+            var contact = (Contact) this.MemberwiseClone();
+            contact.Id = 0;
+            return contact;
+        }
     }
 }
