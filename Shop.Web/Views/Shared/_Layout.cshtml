@@ -1,4 +1,9 @@
-﻿<!DOCTYPE html>
+﻿@inject IUserManager UserManager
+@{
+    var showUserSidebar = ViewBag.ShowSidebar && UserManager.IsSignedIn(Context.User);
+}
+
+<!DOCTYPE html>
 
 <html>
 <head>
@@ -14,9 +19,25 @@
     <header>
         <partial name="_Navbar" />
     </header>
-    <div class="container p-3">
+    <div class="container">
         <div class="justify-content-center">
-            @RenderBody()
+            @if( showUserSidebar )
+            {
+                <div class="row">
+                    <div class="col-9 col-md-9 p-3">
+                        @RenderBody()
+                    </div>
+                    <div class="col-3 col-md-3 bg-light p-5">
+                        <partial name="_Sidebar" />
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="p-3">
+                    @RenderBody()
+                </div>
+            }
         </div>
     </div>
     <footer>
