@@ -65,6 +65,10 @@ namespace Shop.Web.Controllers
                 return RedirectToAction("editDetails", "user");
             }
             var cartProducts = _cartManager.List();
+            if (!cartProducts.Any())
+            {
+                return RedirectToAction("Index");
+            }
             var orderItems = cartProducts.Select(cp => new OrderItem
             {
                 Product = cp.Product,

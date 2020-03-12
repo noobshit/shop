@@ -53,10 +53,13 @@
                 }
             </tbody>
         </table>
-        <span class="text-right">
-            <h2>Total payment: @CartSummary.TotalPayment.ToString("0.##")$</h2>
-        </span>
-        <a asp-controller="Order" asp-action="MakeOrder">Make an order</a>
+        <div class="text-right">
+            <h2 >Total payment: @CartSummary.TotalPayment.ToString("0.##")$</h2>
+            <a asp-controller="User" asp-action="EditDetails" asp-route-returnurl="/Order/MakeOrder"
+                class="btn btn-success">
+                <h5>Make an order</h5>
+            </a>
+        </div>
     </form>
 }
 else
