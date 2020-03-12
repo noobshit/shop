@@ -124,35 +124,35 @@ namespace Shop.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> EditDetails(ContactViewModel model, string returnUrl)
         {
-            if (ModelState.IsValid)
+            if( ModelState.IsValid )
             {
                 var user = await _userManager.GetUserAsync(HttpContext.User);
 
-                if (user == null)
+                if( user == null )
                 {
                     return RedirectToAction("SignIn");
                 }
 
-                if (user.Contact != null)
+                if( user.Contact != null )
                 {
                     model.Id = user.Contact.Id;
                     _mapper.Map(model, user.Contact);
                     _shopContext.SaveChanges();
-                } 
+                }
                 else
                 {
                     var contact = _mapper.Map<Contact>(model);
                     user.Contact = contact;
                     _shopContext.SaveChanges();
                 }
+
+                if( !string.IsNullOrEmpty(returnUrl) )
+                {
+                    return Redirect(returnUrl);
+                }
             }
 
-            if( string.IsNullOrEmpty(returnUrl))
-            {
-                return View(model);
-            }
-
-            return Redirect(returnUrl);
+            return View(model);
         }
     }
 }
