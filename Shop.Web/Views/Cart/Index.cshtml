@@ -3,6 +3,7 @@
 
 @{ 
     ViewBag.Title = "Cart";
+    var totalPayment = CartSummary.TotalPayment.ToString("0.00");
 }
 
 @if( Model.Any() )
@@ -14,11 +15,15 @@
                 {
                     <tr>
                         <td class="align-middle">
-                            <img src="~/images/products/@Model[i].ProductImagePath"
-                                 style="width: 200px; height: 200px;" />
+                            <a asp-controller="home" asp-action="details" asp-route-id="@Model[i].ProductId">
+                                <img src="~/images/products/@Model[i].ProductImagePath"
+                                     style="width: 200px; height: 200px;" />
+                            </a>
                         </td>
                         <td class="align-middle">
-                            <h4>@Model[i].ProductName</h4>
+                            <a asp-controller="home" asp-action="details" asp-route-id="@Model[i].ProductId">
+                                <h4>@Model[i].ProductName</h4>
+                            </a>
                         </td>
                         <td class="align-middle">
                             <h4>@Model[i].ProductPrice$</h4>
@@ -33,7 +38,8 @@
                                        hidden />
                                 <input asp-for="@Model[i].ProductPrice"
                                        hidden />
-                                <input asp-for="@Model[i].Count" />
+                                <input asp-for="@Model[i].Count" 
+                                       class="form-control"/>
                                 <span asp-validation-for="@Model[i].Count" class="text-danger"></span>
                             </div>
                         </td>
@@ -53,16 +59,19 @@
                 }
             </tbody>
         </table>
-        <div class="text-right">
-            <h2 >Total payment: @CartSummary.TotalPayment.ToString("0.##")$</h2>
+
+        <div class="float-right text-right">
+            <h2>Total payment</h2>
+            <h3>$@totalPayment</h3>
             <a asp-controller="User" asp-action="EditDetails" asp-route-returnurl="/Order/MakeOrder"
-                class="btn btn-success">
+                class="btn btn-success btn-block">
                 <h5>Make an order</h5>
             </a>
         </div>
+        
     </form>
 }
 else
 {
-    <h5>No products found in cart. </h5>
+    <h1>No products found in cart. </h1>
 }
