@@ -1,32 +1,54 @@
-﻿@model IEnumerable<ProductViewModel>
+﻿@model IEnumerable<Shop.Web.ViewModels.ProductViewModel>
 
 @{
-    ViewBag.Title = "Admin panel";
+    ViewData["Title"] = "Admin - products";
 }
 
-<a asp-action="Create" asp-controller="Product" class="btn btn-success">Add new product</a>
-<table class="table table-striped table-dark">
+<p>
+    <a asp-action="Create" class="btn btn-success">Create new product</a>
+</p>
+<table class="table table-hover">
     <thead>
         <tr>
-            <th>Id</th>
-            <th>Name</th>
-            <th>Price</th>
-            <th>ImagePath</th>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Price)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ImagePath)
+            </th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
-        @foreach( var item in Model )
-        {
-            <tr>
-                <td>@item.Id</td>
-                <td>@item.Name</td>
-                <td>@item.Price</td>
-                <td>@item.ImagePath</td>
-                <td><a asp-action="details" asp-controller="product" asp-route-id="@item.Id" class="btn btn-info">Details</a></td>
-                <td><a asp-action="edit" asp-controller="product" asp-route-id="@item.Id" class="btn btn-info">Edit</a></td>
-                <td><a asp-action="delete" asp-controller="product" asp-route-id="@item.Id" class="btn btn-danger">Delete</a></td>
-            </tr>
-        }
-
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Price)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ImagePath)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id"
+                   class="btn btn-info">Edit</a>
+                <a asp-action="Details" asp-route-id="@item.Id"
+                   class="btn btn-info">Details</a>
+                <a asp-action="Delete" asp-route-id="@item.Id"
+                   class="btn btn-danger">Delete</a>
+            </td>
+        </tr>
+}
     </tbody>
 </table>
