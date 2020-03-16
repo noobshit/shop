@@ -1,22 +1,14 @@
-﻿<nav class="nav navbar-light bg-light">
-    <ul class="navbar-nav flex-column">
-        <li class="nav-item py-2">
-            <a asp-action="Index" asp-controller="Cart"
-               class="nav-link">
-                Show cart
-            </a>
-        </li>
-        <li class="nav-item py-2">
-            <a asp-action="Index" asp-controller="Order"
-               class="nav-link">
-                Show orders
-            </a>
-        </li>
-        <li class="nav-item py-2">
-            <a asp-action="EditDetails" asp-controller="User"
-               class="nav-link">
-                Edit contact details
-            </a>
-        </li>
-    </ul>
-</nav>
+﻿<div class="list-group">
+    <a asp-action="Index" asp-controller="Cart"
+        class="list-group-item list-group-item-action bg-light">
+        Show cart
+    </a>
+    <a asp-action="Index" asp-controller="Order"
+        class="list-group-item list-group-item-action bg-light">
+        Show orders
+    </a>
+    <a asp-action="EditDetails" asp-controller="User"
+        class="list-group-item list-group-item-action bg-light">
+        Edit contact details
+    </a>
+</div>
