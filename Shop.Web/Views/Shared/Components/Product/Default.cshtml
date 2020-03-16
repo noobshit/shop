@@ -1,18 +1,20 @@
 ﻿@model ProductViewModel
 
-<div class="card mt-3">
+<div class="card mt-2 p-1 col-12">
     <a asp-action="Details" asp-route-id="@Model.Id">
         <img src="~/images/products/@Model.ImagePath"
-             class="card-img-top" />
+                class="card-img-top" />
     </a>
-    <div class="card-body">
-        <h5 class="card-title">
-            <a asp-action="details" asp-route-id="@Model.Id">
-                @Model.Name
-            </a>
-            <span class="badge badge-secondary p-2 float-right">$@Model.Price</span>
-        </h5>
-        <a asp-action="add" asp-controller="cart" asp-route-id="@Model.Id"
-           class="btn btn-success btn-block">add to cart</a>
+    <div class="mt-auto">
+        <div class="card-body">
+            <h5 class="card-title">
+                <a asp-action="details" asp-route-id="@Model.Id">
+                    @Model.Name
+                </a>
+                <span class="badge badge-secondary p-2 float-right">$@Model.Price</span>
+            </h5>
+            <a asp-action="add" asp-controller="cart" asp-route-id="@Model.Id"
+                class="btn btn-success btn-block">add to cart</a>
+        </div>
     </div>
 </div>
