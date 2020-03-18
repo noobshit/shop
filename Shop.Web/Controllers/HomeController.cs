@@ -17,7 +17,7 @@ namespace Shop.Web.Controllers
             _mapper = mapper;
         }
 
-        public IActionResult Index(int page = 0, string orderBy = "", string searchPhrase ="")
+        public IActionResult Index(int page = 0, ProductOrderByEnum orderBy = ProductOrderByEnum.Default, string searchPhrase ="")
         {
             var products = _shopContext.Products.AsQueryable();
 
@@ -28,16 +28,25 @@ namespace Shop.Web.Controllers
 
             products = orderBy switch
             {
-                "price_low" => products.OrderBy(p => p.Price),
-                "price_high" => products.OrderByDescending(p => p.Price),
-                "name_low" => products.OrderBy(p => p.Name),
-                "name_high" => products.OrderByDescending(p => p.Name),
-                "default" => products,
+                ProductOrderByEnum.PriceLow => products.OrderBy(p => p.Price),
+                ProductOrderByEnum.PriceHigh => products.OrderByDescending(p => p.Price),
+                ProductOrderByEnum.NameLow => products.OrderBy(p => p.Name),
+                ProductOrderByEnum.NameHigh => products.OrderByDescending(p => p.Name),
+                ProductOrderByEnum.Default => products,
                 _ => products,
             };
 
             var productViewModels = _mapper.ProjectTo<ProductViewModel>(products);
-            var model = new PaginatedEnumeration<ProductViewModel>(productViewModels, page);
+            var paginatedProducts = new PaginatedEnumeration<ProductViewModel>(productViewModels, page);
+            var model = new HomeViewModel
+            {
+                Products = paginatedProducts.Items,
+                HasNextPage = paginatedProducts.HasNextPage,
+                HasPreviousPage = paginatedProducts.HasPreviousPage,
+                CurrentPage = page,
+                OrderBy = orderBy,
+                SearchPhrase = searchPhrase,
+            };
             return View(model);
         }
 

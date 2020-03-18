@@ -1,62 +1,62 @@
-﻿@model PaginatedEnumeration<ProductViewModel>
+﻿@model HomeViewModel
 
 @{
     ViewBag.Title = "Shop";
     ViewBag.ShowSidebar = false;
-    var OrderBy = Context.Request.Query["orderBy"];
-    var SearchPhrase = Context.Request.Query["searchPhrase"];
+    var OrderBy = Model.OrderBy;
+    var SearchPhrase = Model.SearchPhrase;
 }
 
-    <div class="row">
-        <div class="col-md-6 col-lg-4">
-            <form method="get">
-                <div class="form-group">
-                    <input type="hidden" name="SearchPhrase" value="@SearchPhrase" />
-                    <select class="form-control" name="orderBy" onchange="this.form.submit()">
-                        <option selected>Order by...</option>
-                        <option value="default">Default</option>
-                        <option value="price_low">Low price first</option>
-                        <option value="price_high">High price first</option>
-                        <option value="name_low">Alphabetical order</option>
-                        <option value="name_high">Reversed alphabetical order</option>
-                    </select>
-                </div>
-            </form>
-        </div>
-        <div class="col-md-6 col-lg-4 offset-lg-4">
-            <form method="get" asp-controller="home" asp-action="index">
-                <div class="input-group">
-                    <input type="hidden" name="orderBy" value="@OrderBy" />
-                    <input type="text" name="SearchPhrase" id="name" class="form-control" placeholder="Search..." value="@SearchPhrase" />
-                    <div class="input-group-append">
-                        <button type="submit" class="btn btn-light">search</button>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
-
 <div class="row">
-    @foreach( var product in Model.Items )
-    {
-        <div class="col-md-6 col-lg-4 d-flex align-items-stretch">
-            <vc:Product model="product"></vc:Product>
-        </div>
-    }
+    <div class="col-md-6 col-lg-4">
+        <form method="get">
+            <div class="form-group">
+                <input tasp-for="@SearchPhrase" hidden />
+                <select asp-for="@OrderBy" asp-items="Html.GetEnumSelectList<ProductOrderByEnum>()" 
+                        class="form-control" onchange="this.form.submit()"></select>
+            </div>
+        </form>
+    </div>
+    <div class="col-md-6 col-lg-4 offset-lg-4">
+        <form method="get" asp-controller="home" asp-action="index">
+            <div class="input-group">
+                <input asp-for="@OrderBy" hidden />
+                <input type="text" asp-for="@SearchPhrase" class="form-control" placeholder="Search..."/>
+                <div class="input-group-append">
+                    <button type="submit" class="btn btn-light">Search</button>
+                </div>
+            </div>
+        </form>
+    </div>
 </div>
 
-<nav>
-    <ul class="pagination mt-3 justify-content-center">
-        <li class="page-item @(Model.HasPreviousPage ? "" : "disabled")">
-            <a class="page-link" asp-route-page="@(Model.Page - 1)" asp-route-orderBy="@OrderBy" asp-route-SearchPhrase="@SearchPhrase">Previous</a>
-        </li>
+@if( Model.Products.Any() )
+{
+    <div class="row">
+        @foreach( var product in Model.Products )
+        {
+            <div class="col-md-6 col-lg-4 d-flex align-items-stretch">
+                <vc:Product model="product"></vc:Product>
+            </div>
+        }
+    </div>
+    <nav>
+        <ul class="pagination mt-3 justify-content-center">
+            <li class="page-item @(Model.HasPreviousPage ? "" : "disabled")">
+                <a class="page-link" asp-route-page="@(Model.CurrentPage - 1)" asp-route-orderBy="@OrderBy" asp-route-SearchPhrase="@SearchPhrase">Previous</a>
+            </li>
 
-        <li class="page-item">
-            <a class="page-link active" href="#">@(Model.Page + 1)</a>
-        </li>
+            <li class="page-item">
+                <a class="page-link active" href="#">@(Model.CurrentPage + 1)</a>
+            </li>
 
-        <li class="page-item @(Model.HasNextPage ? "" : "disabled")">
-            <a class="page-link" asp-route-page="@(Model.Page+1)" asp-route-orderBy="@OrderBy" asp-route-SearchPhrase="@SearchPhrase">Next</a>
-        </li>
-    </ul>
-</nav>
+            <li class="page-item @(Model.HasNextPage ? "" : "disabled")">
+                <a class="page-link" asp-route-page="@(Model.CurrentPage + 1)" asp-route-orderBy="@OrderBy" asp-route-SearchPhrase="@SearchPhrase">Next</a>
+            </li>
+        </ul>
+    </nav>
+}
+else
+{
+    <h1 class="text-center">No products found.</h1>
+}
