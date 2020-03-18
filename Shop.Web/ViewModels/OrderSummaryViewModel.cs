@@ -10,6 +10,6 @@ namespace Shop.Web.ViewModels
         public decimal TotalPayment { get; set; }
 
         [Display(Name = "Total products")]
-        public decimal TotalProducts { get; set; }
+        public int TotalProducts { get; set; }
     }
 }
