@@ -11,7 +11,7 @@
     <form method="post">
         @for( int i = 0; i < Model.Count; i++ )
         {
-            <div class="row mt-2">
+            <div class="row mt-2 text-center text-md-left">
                 <div class="col-md-4">
                     <a asp-controller="home" asp-action="details" asp-route-id="@Model[i].ProductId">
                         <img src="~/images/products/@Model[i].ProductImagePath" class="img-fluid" />
@@ -32,7 +32,7 @@
                     </div>
 
                     <div class="row">
-                        <div class="col-md-8">
+                        <div class="offset-3 col-6 offset-md-0">
                             <input asp-for="@Model[i].ProductId" hidden />
                             <input asp-for="@Model[i].ProductImagePath" hidden />
                             <input asp-for="@Model[i].ProductName" hidden />
@@ -57,7 +57,7 @@
             <hr />
          }
 
-            <div class="float-right text-right">
+            <div class="float-none text-center float-md-right text-md-right">
                 <h2>Total payment</h2>
                 <h3>$@totalPayment</h3>
                 <a asp-controller="User" asp-action="EditDetails" asp-route-returnurl="/Order/MakeOrder" class="btn btn-success btn-block">
@@ -68,5 +68,5 @@
 }
 else
 {
-    <h1>No products found in cart. </h1>
+    <h1 class="text-center">No products found in cart. </h1>
 }
