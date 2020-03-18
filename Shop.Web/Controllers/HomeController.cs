@@ -17,9 +17,14 @@ namespace Shop.Web.Controllers
             _mapper = mapper;
         }
 
-        public IActionResult Index(int page = 0, string orderBy = "")
+        public IActionResult Index(int page = 0, string orderBy = "", string searchPhrase ="")
         {
             var products = _shopContext.Products.AsQueryable();
+
+            if (!string.IsNullOrEmpty(searchPhrase))
+            {
+                products = products.Where(p => p.Name.Contains(searchPhrase));
+            }
 
             products = orderBy switch
             {
