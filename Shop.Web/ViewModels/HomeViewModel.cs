@@ -11,5 +11,9 @@ namespace Shop.Web.ViewModels
         public bool HasPreviousPage { get; set; }
         public ProductOrderByEnum OrderBy { get; set; }
         public string SearchPhrase { get; set; }
+
+        public IEnumerable<int> PreviousPages { get; set; }
+        public IEnumerable<int> FollowingPages { get; set; }
+        public int LastPage { get; set; }
     }
 }

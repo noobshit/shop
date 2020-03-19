@@ -56,6 +56,8 @@ namespace Shop.Web.ViewModels
             }
         }
 
+        public int LastPage { get => PageCount - 1; }
+
         public IEnumerable<int> GetPreviousPages(int limit)
         {
             return Enumerable.Range(CurrentPage - limit, limit)
