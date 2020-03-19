@@ -37,13 +37,13 @@ namespace Shop.Web.Controllers
             };
 
             var productViewModels = _mapper.ProjectTo<ProductViewModel>(products);
-            var paginatedProducts = new PaginatedEnumeration<ProductViewModel>(productViewModels, page);
+            var paginatedProducts = productViewModels.SetItemsPerPage(9).SetCurrentPage(page);
             var model = new HomeViewModel
             {
-                Products = paginatedProducts.Items,
+                Products = paginatedProducts,
                 HasNextPage = paginatedProducts.HasNextPage,
                 HasPreviousPage = paginatedProducts.HasPreviousPage,
-                CurrentPage = page,
+                CurrentPage = paginatedProducts.CurrentPage,
                 OrderBy = orderBy,
                 SearchPhrase = searchPhrase,
             };
