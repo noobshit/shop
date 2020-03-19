@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace Shop.Web.ViewModels
 {
-    public class PaginatedEnumerable<TItem> : IEnumerable<TItem>
+    public class PaginatedEnumerable<TItem> : IEnumerable<TItem>, IPaginated
     {
         public PaginatedEnumerable(IEnumerable<TItem> items, int currentPage, int itemsPerPage)
         {
@@ -15,8 +15,8 @@ namespace Shop.Web.ViewModels
         }
 
         private readonly IEnumerable<TItem> _items;
-        private IEnumerable<TItem> ItemsPaginated 
-        { 
+        private IEnumerable<TItem> ItemsPaginated
+        {
             get => _items.Skip(CurrentPage * ItemsPerPage).Take(ItemsPerPage);
         }
         public IEnumerator<TItem> GetEnumerator() => ItemsPaginated.GetEnumerator();
@@ -47,7 +47,7 @@ namespace Shop.Web.ViewModels
         {
             get
             {
-                if (_items.Count() == 0)
+                if( _items.Count() == 0 )
                 {
                     return 1;
                 }

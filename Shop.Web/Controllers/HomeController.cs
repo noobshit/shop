@@ -41,12 +41,6 @@ namespace Shop.Web.Controllers
             var model = new HomeViewModel
             {
                 Products = paginatedProducts,
-                HasNextPage = paginatedProducts.HasNextPage,
-                HasPreviousPage = paginatedProducts.HasPreviousPage,
-                PreviousPages = paginatedProducts.GetPreviousPages(2).ToList(),
-                FollowingPages = paginatedProducts.GetFollowingPages(2).ToList(),
-                CurrentPage = paginatedProducts.CurrentPage,
-                LastPage = paginatedProducts.LastPage,
                 OrderBy = orderBy,
                 SearchPhrase = searchPhrase,
             };
