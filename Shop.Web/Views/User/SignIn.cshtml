@@ -4,44 +4,104 @@
     ViewData["Title"] = "Sign in";
 }
 
-<div class="d-flex justify-content-center">
-    <div class="bg-light p-3 rounded" style="width: 500px;">
-        <h1 class="text-center">Sign In</h1>
-        <hr />
-        <form method="post">
-            <div class="row">
-                <div asp-validation-summary="ModelOnly" class="col-12 text-danger"></div>
-            </div>
-            <div class="form-group row">
-                <label asp-for="Email" class="col-sm-3 col-form-label"></label>
-                <div class="col-sm-9">
-                    <input asp-for="Email" class="form-control" />
+    <div class="d-flex justify-content-center">
+        <div class="bg-light p-3 rounded" style="width: 500px;">
+            <h1 class="text-center">Sign In</h1>
+            <hr />
+            <form method="post">
+                <div class="row">
+                    <div asp-validation-summary="ModelOnly" class="col-12 text-danger"></div>
                 </div>
-                <span asp-validation-for="Email" class="col-12 col-form-label text-danger"></span>
-                
-            </div>
-            <div class="form-group row">
-                <label asp-for="Password" class="col-sm-3 col-form-label"></label>
-                <div class="col-sm-9">
-                    <input asp-for="Password" class="form-control" />
+                <div class="form-group row">
+                    <label asp-for="Email" class="col-sm-3 col-form-label"></label>
+                    <div class="col-sm-9">
+                        <input asp-for="Email" class="form-control" />
+                    </div>
+                    <span asp-validation-for="Email" class="col-12 col-form-label text-danger"></span>
+
                 </div>
-                <span asp-validation-for="Password" class="col-12 col-form-label text-danger"></span>
-                
-            </div>
-            <div class="form-group row">
-                <div class="offset-sm-3 col-sm-9">
-                    <div class="form-check">
-                        <input asp-for="RememberMe" class="form-check-input" />
-                        <label asp-for="RememberMe" class="form-check-label"></label>
+                <div class="form-group row">
+                    <label asp-for="Password" class="col-sm-3 col-form-label"></label>
+                    <div class="col-sm-9">
+                        <input asp-for="Password" class="form-control" />
+                    </div>
+                    <span asp-validation-for="Password" class="col-12 col-form-label text-danger"></span>
+
+                </div>
+                <div class="form-group row">
+                    <div class="offset-sm-3 col-sm-9">
+                        <div class="form-check">
+                            <input asp-for="RememberMe" class="form-check-input" />
+                            <label asp-for="RememberMe" class="form-check-label"></label>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <hr />
-            <div class="form-group row">
-                <div class="col-12">
-                    <button type="submit" class="btn btn-primary btn-block">Sign in</button>
+                <hr />
+                <div class="form-group row">
+                    <div class="col-12">
+                        <button type="submit" class="btn btn-primary btn-block">Sign in</button>
+                    </div>
                 </div>
-            </div>
-        </form>
-    </div>
+            </form>
+            <hr />
+            <form action="UseExternalProvider">
+                <div class="row">
+                    @foreach( var provider in Model.ExternalLogins )
+                    {
+                        if( provider.Name == "Google" )
+                        {
+                            <div class="col-12">
+                                <button type="submit" class="btn btn-block btn-google" value="@provider.Name"
+                                        title="Log in using your @provider.DisplayName account" name="provider">
+
+                                    <i class="fab fa-google-plus fa-align-left social-icon" style=""></i>Google
+                                </button>
+                            </div>
+                        }
+                        else if( provider.Name == "Facebook" )
+                        {
+                            <div class="col-12">
+                                <button class="btn-block btn btn-facebook" type="submit" value="@provider.Name"
+                                        title="Log in using your @provider.DisplayName account" name="provider">
+
+                                    <i class="fab fa-facebook fa-align-left social-icon"></i>Facebook
+                                </button>
+                            </div>
+                        }
+                        else if( provider.Name == "Twitter" )
+                        {
+                            <div class="col-12">
+                                <button class="btn-block btn btn-twitter" type="submit" value="@provider.Name"
+                                        title="Log in using your @provider.DisplayName account" name="provider">
+
+                                    <i class="fab fa-twitter fa-align-left social-icon"></i>Twitter
+                                </button>
+                            </div>
+                        }
+                        else if( provider.Name == "Microsoft" )
+                        {
+                            <div class="col-12">
+                                <button class="btn-block btn btn-microsoft" type="submit" value="@provider.Name"
+                                        title="Log in using your @provider.DisplayName account" name="provider">
+
+                                    <i class="fab fa-microsoft fa-align-left social-icon"></i>Microsoft
+                                </button>
+                            </div>
+                        }
+                        else
+                        {
+                            <div class="col-12">
+                                <button class="btn-block btn btn-linkedin" type="submit" name="provider"
+                                        value="@provider.Name" title="Log in using your @provider.DisplayName account">
+
+                                    <i class="fab fa-life-buoy fa-align-left social-icon"></i>
+                                    Sign in with @provider.Name
+
+                                </button>
+                            </div>
+                        }
+                    }
+                </div>
+            </form>
+        </div>
 </div>

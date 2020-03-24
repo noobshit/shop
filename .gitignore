@@ -341,3 +341,4 @@ healthchecksdb
 /Shop.Web/wwwroot/lib
 /Shop.Web/wwwroot/images/products
 !/Shop.Web/wwwroot/images/products/sample*
+/Shop.Web/web.release.config

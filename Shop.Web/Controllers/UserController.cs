@@ -1,5 +1,8 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Security.Claims;
+using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Shop.Data.Context;
@@ -76,9 +79,74 @@ namespace Shop.Web.Controllers
         }
 
         [HttpGet]
-        public IActionResult SignIn()
+        public async Task<IActionResult> SignIn()
         {
-            return View();
+            var externalLogins = await _signInManager.GetExternalAuthenticationSchemesAsync();
+            var model = new SignInViewModel
+            {
+                ExternalLogins = externalLogins,
+            };
+            return View(model);
+        }
+
+        public IActionResult UseExternalProvider(string provider)
+        {
+            var redirectUrl = Url.Action("ExternalProviderCallback", "User");
+            var props = _signInManager.ConfigureExternalAuthenticationProperties(provider, redirectUrl);
+            return new ChallengeResult(provider, props);
+        }
+
+        public async Task<IActionResult> ExternalProviderCallback(string returnUrl, string remoteError)
+        {
+            returnUrl ??= Url.Action("Index", "Cart");
+            var model = new SignInViewModel
+            {
+                ExternalLogins = await _signInManager.GetExternalAuthenticationSchemesAsync()
+            };
+
+            if (remoteError != null)
+            {
+                ModelState.AddModelError(string.Empty, $"Error from external provider {remoteError}");
+                return View("SignIn", model);
+            }
+
+            var info = await _signInManager.GetExternalLoginInfoAsync();
+            if (info == null)
+            {
+                ModelState.AddModelError(string.Empty, $"Error loading external info");
+                return View("SignIn", model);
+            }
+
+            var signInResult = await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, false);
+
+            if (signInResult.Succeeded)
+            {
+                return LocalRedirect(returnUrl);
+            }
+            
+            var email = info.Principal.FindFirst(ClaimTypes.Email)?.Value;
+            if (email == null)
+            {
+                ModelState.AddModelError(string.Empty, $"Email claim not receveid from {info.ProviderDisplayName}");
+                return View("SignIn", model);
+            }
+
+            var user = await _userManager.FindByEmailAsync(email);
+            if (user == null)
+            {
+                user = new ShopUser
+                {
+                    Email = email,
+                    UserName = email,
+                    Cart = new Cart(),
+                };
+
+                await _userManager.CreateAsync(user);
+            }
+            await _userManager.AddLoginAsync(user, info);
+            await _signInManager.SignInAsync(user, false);
+
+            return LocalRedirect(returnUrl);
         }
 
         [HttpPost]

@@ -1,11 +1,13 @@
 using AutoMapper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using Shop.Data.Context;
 using Shop.Data.Models;
 using Shop.Web.Services;
@@ -14,11 +16,11 @@ namespace Shop.Web
 {
     public class Startup
     {
-        private readonly IConfiguration _config;
+        public IConfiguration Configuration { get; }
 
         public Startup(IConfiguration config)
         {
-            _config = config;
+            Configuration = config;
         }
         // This method gets called by the runtime. Use this method to add services to the container.
         // For more information on how to configure youzr application, visit https://go.microsoft.com/fwlink/?LinkID=398940
@@ -43,12 +45,25 @@ namespace Shop.Web
             });
 
             services.AddDbContextPool<ShopContext>(options =>
-                {
-                    options.UseLazyLoadingProxies().UseSqlServer(_config.GetConnectionString("ShopDB"));
-                }
-            );
+            {
+                options.UseLazyLoadingProxies().UseSqlServer(Configuration.GetConnectionString("ShopDB"));
+            });
 
             services.AddHttpContextAccessor();
+
+            var clientId = Configuration["Authentication:Google:ClientId"];
+            var clientSecret = Configuration["Authentication:Google:ClientSecret"];
+            if (!string.IsNullOrEmpty(clientId) && !string.IsNullOrEmpty(clientSecret))
+            {
+                services.AddAuthentication()
+                    .AddGoogle(options =>
+                    {
+                        options.ClientId = clientId;
+                        options.ClientSecret = clientSecret;
+                        options.CorrelationCookie.SameSite = SameSiteMode.Lax;
+                        options.CorrelationCookie.SecurePolicy = CookieSecurePolicy.None;
+                    });
+            }
 
             services.AddScoped<ICartManager, CartManager>();
             services.AddScoped<IImageManager, ImageManager>();
@@ -58,7 +73,7 @@ namespace Shop.Web
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env) 
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if( env.IsDevelopment() )
             {
@@ -70,6 +85,7 @@ namespace Shop.Web
             }
 
             app.UseStatusCodePagesWithReExecute("/Error/{0}");
+            app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseRouting();
             app.UseAuthentication();

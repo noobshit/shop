@@ -1,8 +1,6 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Authentication;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Shop.Web.ViewModels
 {
@@ -18,6 +16,6 @@ namespace Shop.Web.ViewModels
 
         [Display(Name="Remember me")]
         public bool RememberMe { get; set; }
-
+        public IEnumerable<AuthenticationScheme> ExternalLogins { get; set; }
     }
 }
