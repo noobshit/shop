@@ -1,6 +1,6 @@
 # Shop app 
 ----
-### [LIVE DEMO - http://andzej-001-site1.ftempurl.com/](http://andzej-001-site1.ftempurl.com/)
+### [LIVE DEMO - http://andzej-002-site3.ftempurl.com/](http://andzej-002-site3.ftempurl.com/)
 ----
 #### Features
 - Products with CRUD operations 
